@@ -1,8 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = 5000;
 
+app.use(cors({
+  origin: 'https://chips2314.github.io',
+  credentials: true
+}));
 
 const fs = require('fs');
 const path = require('path');
