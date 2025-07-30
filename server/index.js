@@ -6,7 +6,6 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ Настраиваем CORS ОДИН РАЗ и правильно:
 app.use(cors({
   origin: 'https://chips2314.github.io',
   methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
@@ -14,14 +13,12 @@ app.use(cors({
   credentials: false
 }));
 
-// ✅ Обрабатываем preflight (OPTIONS) запросы вручную (на всякий случай)
 app.options('*', cors());
 
 app.use(express.json());
 
 const usersFile = path.join(__dirname, 'users.json');
 
-// Функции для работы с файлами пользователей
 function readUsers() {
   try {
     const data = fs.readFileSync(usersFile, 'utf8');
