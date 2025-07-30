@@ -1,22 +1,27 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
-const PORT = 5000;
-
-
-app.use(cors({
-  origin: 'https://chips2314.github.io',
-  methods: ['GET', 'POST', 'DELETE'],
-  credentials: false
-}));
-
 const fs = require('fs');
 const path = require('path');
 
-const usersFile = path.join(__dirname, 'users.json');
-app.use(cors());
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// ✅ Настраиваем CORS ОДИН РАЗ и правильно:
+app.use(cors({
+  origin: 'https://chips2314.github.io',
+  methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  credentials: false
+}));
+
+// ✅ Обрабатываем preflight (OPTIONS) запросы вручную (на всякий случай)
+app.options('*', cors());
+
 app.use(express.json());
- 
+
+const usersFile = path.join(__dirname, 'users.json');
+
+// Функции для работы с файлами пользователей
 function readUsers() {
   try {
     const data = fs.readFileSync(usersFile, 'utf8');
@@ -25,15 +30,10 @@ function readUsers() {
     return [];
   }
 }
- 
+
 function writeUsers(users) {
   fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
 }
-
-//let users = [{ username: 'admin', password: '1234' }];
-
-let tasks = ["Купить хлеб", "Выучить React"];
-
 
 //рег
 app.post('/register', (req, res) => {
