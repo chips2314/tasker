@@ -10,8 +10,6 @@ app.use(cors({
   credentials: false
 }));
 
-app.use(express.json());
-
 const fs = require('fs');
 const path = require('path');
 
