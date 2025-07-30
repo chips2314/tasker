@@ -4,6 +4,14 @@ const app = express();
 const PORT = 5000;
 
 
+app.use(cors({
+  origin: 'https://chips2314.github.io',
+  methods: ['GET', 'POST', 'DELETE'],
+  credentials: false
+}));
+
+app.use(express.json());
+
 const fs = require('fs');
 const path = require('path');
 
