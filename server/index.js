@@ -33,7 +33,7 @@ function writeUsers(users) {
 }
 
 //рег
-app.post('/register', (req, res) => {
+app.post('/register/:index', (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ success: false, message: 'Введите логин и пароль' });
@@ -53,7 +53,7 @@ app.post('/register', (req, res) => {
 });
 
 //вход
-app.post('/login', (req, res) => {
+app.post('/login/:index', (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ success: false, message: 'Введите логин и пароль' });
@@ -71,12 +71,12 @@ app.post('/login', (req, res) => {
 
 
 //получить список
-app.get('/tasks', (req, res) => {
+app.get('/tasks/:index', (req, res) => {
   res.json(tasks);
 });
 
 //добавить
-app.post('/tasks', (req, res) => {
+app.post('/tasks/:index', (req, res) => {
   const { task } = req.body;
   if (task) {
     tasks.push(task);
